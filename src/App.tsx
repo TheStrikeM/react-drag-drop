@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.sass'
 
 type CardListState = {
   id: number,
