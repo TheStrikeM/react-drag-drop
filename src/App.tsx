@@ -11,7 +11,7 @@ type CardItemState = {
 function App() {
     const [cardList, setCardList] = React.useState<CardItemState[]>([
         {id: 1, order: 3, text: "Карточка 3", color: "green"},
-        {id: 2, order: 1, text: "Карточка 1", color: "reg"},
+        {id: 2, order: 1, text: "Карточка 1", color: "red"},
         {id: 3, order: 2, text: "Карточка 2", color: "yellow"},
         {id: 4, order: 4, text: "Карточка 4", color: "orange"},
     ])
@@ -22,9 +22,9 @@ function App() {
         setCurrentCard(card)
     }
 
-    function dragEndHandler(e: React.DragEvent<HTMLDivElement>): void {
+    function dragEndHandler(e: React.DragEvent<HTMLDivElement>, card: CardItemState): void {
         // @ts-ignore
-        e.target.style.background = "#ff6b6b"
+        e.target.style.background = card.color
     }
 
     function dragOverHandler(e: React.DragEvent<HTMLDivElement>): void {
@@ -36,7 +36,7 @@ function App() {
     function dropHandler(e: React.DragEvent<HTMLDivElement>, card: CardItemState): void {
         e.preventDefault()
         // @ts-ignore
-        e.target.style.background = "#ff6b6b"
+        e.target.style.background = card.color
         setCardList(cardList.map((c: any) => {
             if (c.id === card.id) {
                 // @ts-ignore
@@ -65,8 +65,8 @@ function App() {
                 <div
                     key={card.id}
                     onDragStart={e => dragStartHandler(e, card)}
-                    onDragLeave={e => dragEndHandler(e)}
-                    onDragEnd={e => dragEndHandler(e)}
+                    onDragLeave={e => dragEndHandler(e, card)}
+                    onDragEnd={e => dragEndHandler(e, card)}
                     onDragOver={e => dragOverHandler(e)}
                     onDrop={e => dropHandler(e, card)}
                     className={"card " + card.color}
