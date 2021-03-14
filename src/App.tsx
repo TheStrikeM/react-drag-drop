@@ -4,15 +4,16 @@ import './App.sass'
 type CardItemState = {
     id: number,
     order: number,
-    text: string
+    text: string,
+    color: string
 }
 
 function App() {
     const [cardList, setCardList] = React.useState<CardItemState[]>([
-        {id: 1, order: 3, text: "Карточка 3"},
-        {id: 2, order: 1, text: "Карточка 1"},
-        {id: 3, order: 2, text: "Карточка 2"},
-        {id: 4, order: 4, text: "Карточка 4"},
+        {id: 1, order: 3, text: "Карточка 3", color: "green"},
+        {id: 2, order: 1, text: "Карточка 1", color: "reg"},
+        {id: 3, order: 2, text: "Карточка 2", color: "yellow"},
+        {id: 4, order: 4, text: "Карточка 4", color: "orange"},
     ])
     const [currentCard, setCurrentCard] = React.useState<CardItemState | null>(null)
 
@@ -41,7 +42,8 @@ function App() {
                 // @ts-ignore
                 return {...c, order: currentCard.order}
             }
-            if (c.id === currentCard) {
+            // @ts-ignore
+            if (c.id === currentCard.id) {
                 return {...c, order: card.order}
             }
             return c
@@ -67,7 +69,7 @@ function App() {
                     onDragEnd={e => dragEndHandler(e)}
                     onDragOver={e => dragOverHandler(e)}
                     onDrop={e => dropHandler(e, card)}
-                    className={"card"}
+                    className={"card " + card.color}
                     draggable={true}
                 >
                     {card.text}
