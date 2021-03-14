@@ -15,10 +15,34 @@ function App() {
         {id: 4, order: 4, text: "Карточка 4"},
     ])
 
+    function dragEndHandler(e: React.DragEvent<HTMLDivElement>) {
+
+    }
+
+    function dragOverHandler(e: React.DragEvent<HTMLDivElement>) {
+
+    }
+
+    function dragStartHandler(e: React.DragEvent<HTMLDivElement>, card: CardListState) {
+
+    }
+
+    function dropHandler(e: React.DragEvent<HTMLDivElement>, card: CardListState) {
+
+    }
+
     return (
         <div className="App">
           {cardList.map(card => (
-              <div className={"card"}>
+              <div
+                  onDragStart={e => dragStartHandler(e, card)}
+                  onDragLeave={e => dragEndHandler(e)}
+                  onDragEnd={e => dragEndHandler(e)}
+                  onDragOver={e => dragOverHandler(e)}
+                  onDrop={e => dropHandler(e, card)}
+                  className={"card"}
+                  draggable={true}
+              >
                 {card.text}
               </div>
           ))}
